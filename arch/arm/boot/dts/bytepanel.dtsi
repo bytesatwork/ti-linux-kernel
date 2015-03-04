@@ -1,0 +1,236 @@
+/*
+ * Copyright (C) 2015 Bytes at Work - http://www.bytesatwork.ch
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "byteengine-m2.dtsi"
+
+/ {
+	model = "bytePanel";
+	compatible = "batw,bytepanel", "batw,m2", "ti,am33xx";
+
+	// ---- Backlight for all displays on X11, X12, X13 ----
+	backlight: backlight {
+		compatible = "pwm-backlight";
+		status = "disabled";
+		pwms = <&ecap0 0 50000 0>;
+		brightness-levels = <0 4 8 16 32 64 128 255>;
+		default-brightness-level = <6>;
+		enable-gpios = <&gpio1 27 0>;
+	};
+
+	// FIXME: set pins not as LED; use a muxer or so
+	dispconf {
+		compatible = "gpio-leds";
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&display_pins>;
+
+		lcd_data_enable: lcd_data_enable {
+			gpios = <&gpio1 25 1>;
+			default-state = "off";
+		};
+
+		lcd_lvds_shutdown: lcd_lvds_shutdown {
+			gpios = <&gpio1 26 1>;
+			default-state = "on";
+		};
+
+		lcd_panel_pwr: lcd_panel_pwr {
+			gpios = <&gpio1 20 0>;
+			default-state = "on";
+		};
+	};
+};
+
+&am33xx_pinmux {
+	pinctrl-names = "default";
+	pinctrl-0 = <&defpins_pins>;
+
+	// ---- TODO implement all systems and remove those pins ----
+	defpins_pins: pinmux_defpins_pins {
+		pinctrl-single,pins = <
+			PIN_SPI0_CS0		0
+			PIN_SPI0_D1		0
+			PIN_UART1_TXD		0
+			PIN_UART1_RXD		0
+		>;
+	};
+
+	// ---- UART0 on X3 ----
+	uart0_pins: pinmux_uart0_pins {
+		pinctrl-single,pins = <
+			PIN_UART0_RXD	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_UART0_TXD	(MUX_MODE0 | PIN_OUTPUT_PULLDOWN)
+		>;
+	};
+
+	// ---- ETHERNET on X8 ----
+	cpsw_default: pinmux_cpsw_default {
+		pinctrl-single,pins = <
+			PIN_MII1_RX_ER	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RX_DV	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_COL	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_CRS	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RX_CLK	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RXD0	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RXD1	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RXD2	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_RXD3	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_TX_CLK	(MUX_MODE0 | PIN_INPUT_PULLDOWN)
+			PIN_MII1_TX_EN	(MUX_MODE0 | PIN_OUTPUT)
+			PIN_MII1_TXD0	(MUX_MODE0 | PIN_OUTPUT)
+			PIN_MII1_TXD1	(MUX_MODE0 | PIN_OUTPUT)
+			PIN_MII1_TXD2	(MUX_MODE0 | PIN_OUTPUT)
+			PIN_MII1_TXD3	(MUX_MODE0 | PIN_OUTPUT)
+		>;
+	};
+
+	davinci_mdio_default: pinmux_davinci_mdio_default {
+		pinctrl-single,pins = <
+			PIN_MDIO	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MDC		(MUX_MODE0 | PIN_OUTPUT_PULLUP)
+		>;
+	};
+
+	// ---- MMC on X9 ----
+	mmc1_common: pinmux_mmc0_common {
+		pinctrl-single,pins = <
+			PIN_MMC0_DAT0	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MMC0_DAT1	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MMC0_DAT2	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MMC0_DAT3	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MMC0_CMD	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MMC0_CLK	(MUX_MODE0 | PIN_INPUT_PULLUP)
+		>;
+	};
+
+	mmc1_cd: pinmux_mmc0_cd {
+		pinctrl-single,pins = <
+			PIN_SPI0_CS1	(MUX_MODE7 | PIN_INPUT_PULLUP)		// gpio0_6
+		>;
+	};
+
+	// ---- USB on X7 ----
+	usb_pins: pinmux_usb_pins {
+		pinctrl-single,pins = <
+			PIN_USB0_DRVVBUS        (MUX_MODE0 | PIN_OUTPUT)
+			PIN_USB1_DRVVBUS        (MUX_MODE0 | PIN_OUTPUT)
+		>;
+	};
+
+	// ---- Backlight for all displays on X11, X12, X13 ----
+	ecap0_pins: pinmux_ecap0_pins {
+		pinctrl-single,pins = <
+			PIN_ECAP0_IN_PWM0_OUT	(MUX_MODE0 | PIN_OUTPUT)
+			PIN_GPMC_A11		(MUX_MODE7 | PIN_OUTPUT)	// gpio1_27
+		>;
+	};
+
+	// ---- Display configuration X11, X13 ----
+	display_pins: pinmux_display_pins {
+		pinctrl-single,pins = <
+			PIN_GPMC_A4		(MUX_MODE7 | PIN_OUTPUT)	// gpio1_20
+			PIN_GPMC_A9		(MUX_MODE7 | PIN_OUTPUT)	// gpio1_25
+			PIN_GPMC_A10		(MUX_MODE7 | PIN_OUTPUT)	// gpio1_26
+		>;
+	};
+
+	// ---- Onboard audio and external touch  ----
+	i2c1_pins: pinmux_i2c1_pins {
+		pinctrl-single,pins = <
+			PIN_UART0_CTSN		(MUX_MODE3 | PIN_INPUT_PULLUP | SLEWCTRL_FAST)	// I2C1_SDA
+			PIN_UART0_RTSN		(MUX_MODE3 | PIN_INPUT_PULLUP | SLEWCTRL_FAST)	// I2C1_SCL
+		>;
+	};
+};
+
+// ---- UART0 on X3 ----
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pins>;
+
+	status = "okay";
+};
+
+// ---- ETHERNET on X8 ----
+&davinci_mdio {
+	pinctrl-names = "default";
+	pinctrl-0 = <&davinci_mdio_default>;
+};
+
+&cpsw_emac0 {
+	phy_id = <&davinci_mdio>, <0>;
+	phy-mode = "mii";
+};
+
+&mac {
+	pinctrl-names = "default";
+	pinctrl-0 = <&cpsw_default>;
+
+	slaves = <1>;
+	active_slave = <0>;
+};
+
+// ---- MMC on X9 ----
+&mmc1 {
+	status = "okay";
+	vmmc-supply = <&vmmc_reg>;
+	bus-width = <4>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&mmc1_cd>;
+	cd-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+	cd-inverted;
+};
+
+// ---- USB on X7 ----
+&usb {
+	pinctrl-names = "default";
+	pinctrl-0 = <&usb_pins>;
+
+	status = "okay";
+
+	control@44e10620 {
+		status = "okay";
+	};
+
+	usb-phy@47401300 {
+		status = "okay";
+	};
+
+	usb@47401000 {
+		status = "okay";
+		dr_mode = "host";
+	};
+
+	usb-phy@47401b00 {
+		status = "okay";
+	};
+
+	usb@47401800 {
+		status = "okay";
+		dr_mode = "host";
+	};
+
+	dma-controller@47402000  {
+		status = "okay";
+	};
+};
+
+// ---- Backlight for all displays on X11, X12, X13 ----
+&ecap0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&ecap0_pins>;
+};
+
+// ---- Onboard audio and external touch ----
+&i2c1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c1_pins>;
+
+	status = "okay";
+	clock-frequency = <400000>;
+};
