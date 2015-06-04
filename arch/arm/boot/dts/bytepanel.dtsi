@@ -47,19 +47,6 @@
 };
 
 &am33xx_pinmux {
-	pinctrl-names = "default";
-	pinctrl-0 = <&defpins_pins>;
-
-	// ---- TODO implement all systems and remove those pins ----
-	defpins_pins: pinmux_defpins_pins {
-		pinctrl-single,pins = <
-			PIN_SPI0_CS0		0
-			PIN_SPI0_D1		0
-			PIN_UART1_TXD		0
-			PIN_UART1_RXD		0
-		>;
-	};
-
 	// ---- UART0 on X3 ----
 	uart0_pins: pinmux_uart0_pins {
 		pinctrl-single,pins = <
