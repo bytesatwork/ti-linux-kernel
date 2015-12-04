@@ -88,7 +88,7 @@
 	// ---- Touch ----
 	touch_pins: pinmux_touch_pins {
 		pinctrl-single,pins = <
-			PIN_GPMC_A7		(MUX_MODE7 | PIN_INPUT_PULLUP)	// gpio1_23 /wake
+			PIN_GPMC_A7		(MUX_MODE7 | PIN_OUTPUT)	// gpio1_23 /wake
 			PIN_GPMC_A8		(MUX_MODE7 | PIN_INPUT_PULLUP)	// gpio1_24 /int
 		>;
 	};
@@ -126,6 +126,6 @@
 		reg = <0x38>;
 		interrupt-parent = <&gpio1>;
 		interrupts = <24 0>;
-		wake-gpios = <&gpio1 23 1>;
+		wake-gpios = <&gpio1 23 GPIO_ACTIVE_HIGH>;
 	};
 };

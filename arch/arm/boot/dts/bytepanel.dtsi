@@ -145,6 +145,7 @@
 
 // ---- ETHERNET on X8 ----
 &davinci_mdio {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&davinci_mdio_default>;
 };
@@ -155,6 +156,7 @@
 };
 
 &mac {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&cpsw_default>;
 
