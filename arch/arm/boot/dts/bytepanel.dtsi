@@ -146,6 +146,14 @@
 			PIN_MCASP0_ACLKR	(MUX_MODE7 | PIN_OUTPUT_PULLDOWN)	// GPIOMUX3
 		>;
 	};
+
+	// -----DCAN1 on X6 -----
+	dcan1_pins: pinmux_dcan1_pins {
+		pinctrl-single,pins = <
+			PIN_UART1_RXD		(MUX_MODE2 | PIN_OUTPUT)	// (dcan1_tx)
+			PIN_UART1_TXD		(MUX_MODE2 | PIN_INPUT)		// (dcan1_rx)
+		>;
+	};
 };
 
 // ---- UART0 on X3 ----
@@ -153,6 +161,13 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart0_pins>;
 	status = "okay";
+};
+
+// -----DCAN1 on X6 -----
+&dcan1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&dcan1_pins>;
+	status = "disabled";
 };
 
 // ---- UART1 on X6 ----
