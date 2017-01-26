@@ -25,7 +25,7 @@
 	// FIXME: set pins not as LED; use a muxer or so
 	dispconf {
 		compatible = "gpio-leds";
-		status = "okay";
+		status = "disabled";
 		pinctrl-names = "default";
 		pinctrl-0 = <&display_pins>;
 
