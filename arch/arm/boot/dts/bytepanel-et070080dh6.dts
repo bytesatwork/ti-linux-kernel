@@ -104,6 +104,10 @@
 	default-state = "on";
 };
 
+&display {
+	status = "okay";
+};
+
 // ---- Backlight ----
 &backlight {
 	status = "okay";
