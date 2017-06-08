@@ -6,10 +6,10 @@
  * published by the Free Software Foundation.
  */
 
-#include "byteengine-m2.dtsi"
+#include "byteengine-m2-emmc.dtsi"
 
 / {
-	model = "bytePanel with M2 Rev 0-2 and NAND";
+	model = "bytePanel with M2 Rev4 and EMMC";
 	compatible = "batw,bytepanel", "batw,m2", "ti,am33xx";
 
 	// ---- Backlight for all displays on X11, X12, X13 ----

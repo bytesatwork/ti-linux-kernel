@@ -10,18 +10,13 @@
 #include <dt-bindings/pinctrl/am335x-names.h>
 
 / {
-	model = "byteEngine M2 Rev0-2 (NAND)";
+	model = "byteEngine M2 Rev4 (EMMC)";
 	compatible = "batw,m2", "ti,am33xx";
 
 	cpus {
 		cpu@0 {
 			cpu0-supply = <&vdd1_reg>;
 		};
-	};
-
-	memory {
-		device_type = "memory";
-		reg = <0x80000000 0x10000000>;		// 256 MB
 	};
 
 	vbat: fixedregulator@0 {
@@ -43,25 +38,28 @@
 		>;
 	};
 
-	nandflash_pins_s0: pinmux_nandflash_pins_s0 {
+	emmc_pins: pinmux_emmc_pins {
 		pinctrl-single,pins = <
-			PIN_GPMC_AD0		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD1		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD2		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD3		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD4		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD5		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD6		(PIN_INPUT_PULLUP | MUX_MODE0)
-			PIN_GPMC_AD7		(PIN_INPUT_PULLUP | MUX_MODE0)
+			PIN_GPMC_CSN1 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn1.mmc1_clk */
+			PIN_GPMC_CSN2 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn2.mmc1_cmd */
+			PIN_GPMC_AD0 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad0.mmc1_dat0 */
+			PIN_GPMC_AD1 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad1.mmc1_dat1 */
+			PIN_GPMC_AD2 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad2.mmc1_dat2 */
+			PIN_GPMC_AD3 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad3.mmc1_dat3 */
+			PIN_GPMC_AD4 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad4.mmc1_dat4 */
+			PIN_GPMC_AD5 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad5.mmc1_dat5 */
+			PIN_GPMC_AD6 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad6.mmc1_dat6 */
+			PIN_GPMC_AD7 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad7.mmc1_dat7 */
 
-			PIN_GPMC_WPN		(PIN_INPUT_PULLUP | MUX_MODE7)
-			PIN_GPMC_CSN0		(PIN_OUTPUT | MUX_MODE0)
-			PIN_GPMC_ADVN_ALE	(PIN_OUTPUT | MUX_MODE0)
-			PIN_GPMC_BEN0_CLE	(PIN_OUTPUT | MUX_MODE0)
-			PIN_GPMC_WEN		(PIN_OUTPUT | MUX_MODE0)
-			PIN_GPMC_OEN_REN	(PIN_OUTPUT | MUX_MODE0)
-
-			PIN_GPMC_WAIT0		(PIN_INPUT_PULLUP | MUX_MODE0)
+		>;
+	};
+	
+	spi0_pins: spi0_pins {
+		pinctrl-single,pins = <
+			PIN_SPI0_SCLK 		( PIN_INPUT | MUX_MODE0 ) 	/* (A17) spi0_sclk.spi0_sclk */
+			PIN_SPI0_D0 		( PIN_INPUT | MUX_MODE0 ) 	/* (B17) spi0_d0.spi0_d0 */
+			PIN_SPI0_D1 		( PIN_OUTPUT | MUX_MODE0 ) 	/* (B16) spi0_d1.spi0_d1 */
+			PIN_SPI0_CS0 		( PIN_OUTPUT | MUX_MODE0 ) 	/* (A16) spi0_cs0.spi0_cs0 */
 		>;
 	};
 };
@@ -164,48 +162,28 @@
 	compatible = "at,24c256";
 };
 
-&elm {
-	status = "okay";
-};
 
-&gpmc {
-	status = "okay";
+&spi0 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&nandflash_pins_s0>;
-	ranges = <0 0 0x08000000 0x10000000>;	// CS0: NAND
-	nand: nand@0,0 {
-		compatible = "ti,omap2-nand";
-		reg = <0 0 4>; /* CS0, offset 0 */
-		nand-bus-width = <8>;
-		ti,nand-ecc-opt = "ham1";
-		ti,elm-id = <&elm>;
-
+	pinctrl-0 = <&spi0_pins>;
+	status = "okay";
+	
+	spinor: flash@0 {
 		#address-cells = <1>;
 		#size-cells = <1>;
-
-		gpmc,device-nand = "true";
-		gpmc,device-width = <1>;
-		gpmc,sync-clk-ps = <0>;
-		gpmc,cs-on-ns = <0>;
-		gpmc,cs-rd-off-ns = <44>;
-		gpmc,cs-wr-off-ns = <44>;
-		gpmc,adv-on-ns = <6>;
-		gpmc,adv-rd-off-ns = <34>;
-		gpmc,adv-wr-off-ns = <44>;
-		gpmc,we-on-ns = <0>;
-		gpmc,we-off-ns = <40>;
-		gpmc,oe-on-ns = <0>;
-		gpmc,oe-off-ns = <54>;
-		gpmc,access-ns = <64>;
-		gpmc,rd-cycle-ns = <82>;
-		gpmc,wr-cycle-ns = <82>;
-		gpmc,wait-on-read = "true";
-		gpmc,wait-on-write = "true";
-		gpmc,bus-turnaround-ns = <0>;
-		gpmc,cycle2cycle-delay-ns = <0>;
-		gpmc,clk-activation-ns = <0>;
-		gpmc,wait-monitoring-ns = <0>;
-		gpmc,wr-access-ns = <40>;
-		gpmc,wr-data-mux-bus-ns = <0>;
+		compatible = "st,m25pe40", "jedec,spi-nor";
+		spi-max-frequency = <20000000>;
+		reg = <0>;
 	};
+};
+
+
+&mmc2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&emmc_pins>;
+	vmmc-supply = <&vmmc_reg>;
+	status = "okay";
+	ti,non-removable;
+	bus-width = <8>;
+	
 };
