@@ -116,6 +116,7 @@
 #define	PIN_CAM0_HD		0x1B0
 #define	PIN_CAM0_VD		0x1B4
 #define	PIN_CAM0_FIELD		0x1B8
+#define	PIN_CAM0_WEN		0x1BC
 #define	PIN_CAM0_PCLK		0x1C0
 #define	PIN_CAM0_DATA8		0x1C4
 #define	PIN_CAM0_DATA9		0x1C8
@@ -162,6 +163,7 @@
 #define	PIN_SPI2_CS0		0x26C
 #define	PIN_XDMA_EVT_INTR0	0x270
 #define	PIN_XDMA_EVT_INTR1	0x274
+#define	PIN_CLKREQ		0x278
 #define	PIN_NRESETIN_OUT	0x27C
 #define	PIN_NNMI		0x284
 #define	PIN_TMS			0x290
