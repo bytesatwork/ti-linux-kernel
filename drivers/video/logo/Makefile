@@ -13,6 +13,9 @@ obj-$(CONFIG_LOGO_SUN_CLUT224)		+= logo_sun_clut224.o
 obj-$(CONFIG_LOGO_SUPERH_MONO)		+= logo_superh_mono.o
 obj-$(CONFIG_LOGO_SUPERH_VGA16)		+= logo_superh_vga16.o
 obj-$(CONFIG_LOGO_SUPERH_CLUT224)	+= logo_superh_clut224.o
+obj-$(CONFIG_LOGO_BAW_1024X600_CLUT224) += logo_baw_1024x600_clut224.o
+obj-$(CONFIG_LOGO_BAW_800X480_CLUT224)  += logo_baw_800x480_clut224.o
+obj-$(CONFIG_LOGO_BAW_480X272_CLUT224)  += logo_baw_480x272_clut224.o
 
 obj-$(CONFIG_SPU_BASE)			+= logo_spe_clut224.o
 

@@ -99,6 +99,15 @@ const struct linux_logo * __ref fb_find_logo(int depth)
 		/* SuperH Linux logo */
 		logo = &logo_superh_clut224;
 #endif
+#ifdef CONFIG_LOGO_BAW_1024X600_CLUT224
+		logo = &logo_baw_1024x600_clut224;
+#endif
+#ifdef CONFIG_LOGO_BAW_800X480_CLUT224
+		logo = &logo_baw_800x480_clut224;
+#endif
+#ifdef CONFIG_LOGO_BAW_480X272_CLUT224
+		logo = &logo_baw_480x272_clut224;
+#endif
 	}
 	return logo;
 }

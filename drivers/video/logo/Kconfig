@@ -67,4 +67,16 @@ config LOGO_SUPERH_CLUT224
 	depends on SUPERH
 	default y
 
+config LOGO_BAW_1024X600_CLUT224
+	bool "224-color 1024x600 pixel bytes at work logo"
+	default y
+
+config LOGO_BAW_800X480_CLUT224
+	bool "224-color 800x480 pixel bytes at work logo"
+	default y
+
+config LOGO_BAW_480X272_CLUT224
+	bool "224-color 480x272 pixel bytes at work logo"
+	default y
+
 endif # LOGO
