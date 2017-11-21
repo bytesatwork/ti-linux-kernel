@@ -13,6 +13,7 @@
  */
 
 #include "byteengine-m3.dtsi"
+#include <dt-bindings/net/ti-dp83867.h>
 
 / {
 	model = "byteBoard";
@@ -47,7 +48,7 @@
 			PIN_MII1_RXD2 (PIN_INPUT_PULLDOWN | MUX_MODE2)		/* mii1_rxd0.rgmii1_rxd2 */
 			PIN_MII1_RXD1 (PIN_INPUT_PULLDOWN | MUX_MODE2)		/* mii1_rxd1.rgmii1_rxd1 */
 			PIN_MII1_RXD0 (PIN_INPUT_PULLDOWN | MUX_MODE2)		/* mii1_rxd0.rgmii1_rxd0 */
-			PIN_MII1_COL (PIN_OUTPUT_PULLDOWN | MUX_MODE7)		/* mii1_col.gpio3_0 */
+			PIN_MII1_COL (PIN_INPUT_PULLUP | MUX_MODE7)		/* mii1_col.gpio3_0 */
 		>;
 	};
 
@@ -102,11 +103,21 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&davinci_mdio_default>;
 	status = "okay";
+
+	dp83867_0: ethernet-phy@0 {
+		reg = <0>;
+		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_50_NS>;
+		ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_50_NS>;
+		ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
+		interrupt-parent = <&gpio3>;
+		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
+		ti,min-output-impedance;
+	};
 };
 
 &cpsw_emac0 {
 	phy_id = <&davinci_mdio>, <0>;
-	phy-mode = "rgmii";
+	phy-mode = "rgmii-id";
 };
 
 /* sd card */
@@ -125,10 +136,4 @@
 
 &gpio3 {
 	status = "okay";
-
-	p0 {
-		gpio-hog;
-		gpios = <0 GPIO_ACTIVE_HIGH>;
-		output-high;
-	};
 };
