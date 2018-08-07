@@ -13,6 +13,10 @@
 	model = "bytePanel ETML101000DH";
 	compatible = "batw,bytepanel-etml101000dh", "batw,bytepanel", "batw,m2", "ti,am33xx";
 
+	chosen {
+		logo = "logo_baw_1024x600_clut224";
+	};
+
 	panel {
 		compatible = "ti,tilcdc,panel";
 		pinctrl-names = "default";

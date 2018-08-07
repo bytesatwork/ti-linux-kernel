@@ -13,6 +13,10 @@
 	model = "bytePanel ET070080DH6";
 	compatible = "batw,bytepanel-et070080dh6", "batw,bytepanel", "batw,m2", "ti,am33xx";
 
+	chosen {
+		logo = "logo_baw_800x480_clut224";
+	};
+
 	et070080dh6 {
 		compatible = "ti,tilcdc,panel";
 		status = "okay";
