@@ -31,6 +31,7 @@ struct linux_logo {
 	unsigned int clutsize;		/* LINUX_LOGO_CLUT224 only */
 	const unsigned char *clut;	/* LINUX_LOGO_CLUT224 only */
 	const unsigned char *data;
+	const unsigned char *name;
 };
 
 extern const struct linux_logo logo_linux_mono;

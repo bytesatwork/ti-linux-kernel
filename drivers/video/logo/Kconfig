@@ -15,6 +15,9 @@ config FB_LOGO_EXTRA
 	depends on FB=y
 	default y if SPU_BASE
 
+config LOGO_OF_SELECT
+	bool "Select logo from device tree"
+
 config LOGO_LINUX_MONO
 	bool "Standard black and white Linux logo"
 	default y

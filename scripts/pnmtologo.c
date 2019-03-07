@@ -259,7 +259,8 @@ static void write_footer(void)
 	fprintf(out, "\t.clutsize\t= %d,\n", logo_clutsize);
 	fprintf(out, "\t.clut\t\t= %s_clut,\n", logoname);
     }
-    fprintf(out, "\t.data\t\t= %s_data\n", logoname);
+    fprintf(out, "\t.data\t\t= %s_data,\n", logoname);
+    fprintf(out, "\t.name\t\t= \"%s\"\n", logoname);
     fputs("};\n\n", out);
 
     /* close logo file */
