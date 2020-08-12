@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Copyright (C) 2020 bytesatwork AG - https://www.bytesatwork.io
+ */
+
+/dts-v1/;
+
+#include "am335x-bytedevkit.dtsi"
+
+/ {
+	model = "byteDEVKIT with byteENGINE AM335x";
+	compatible = "batw,bytedevkit-am335x", "batw,am335x", "ti,am33xx";
+};

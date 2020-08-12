@@ -1,0 +1,102 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Copyright (C) 2020 bytesatwork AG - https://www.bytesatwork.io
+ */
+
+#include "am335x-byteengine.dtsi"
+
+/ {
+	model = "byteDEVKIT with byteENGINE AM335x";
+	compatible = "batw,bytedevkit-am335x", "batw,am335x", "ti,am33xx";
+};
+
+&am33xx_pinmux {
+	uart0_pins: pinmux_uart0_pins {
+		pinctrl-single,pins = <
+			PIN_UART0_RXD	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_UART0_TXD	(MUX_MODE0 | PIN_OUTPUT_PULLDOWN)
+		>;
+	};
+
+	cpsw_default: pinmux_cpsw_default {
+		pinctrl-single,pins = <
+			PIN_MII1_TX_EN	(PIN_OUTPUT | MUX_MODE2)	/* (J16) gmii1_txen.rgmii1_tctl */
+			PIN_MII1_RX_DV	(PIN_INPUT | MUX_MODE2)		/* (J17) gmii1_rxdv.rgmii1_rctl */
+			PIN_MII1_TX_CLK	(PIN_OUTPUT | MUX_MODE2)	/* (K18) gmii1_txclk.rgmii1_tclk */
+			PIN_MII1_RX_CLK	(PIN_INPUT | MUX_MODE2)		/* (L18) gmii1_rxclk.rgmii1_rclk */
+			PIN_MII1_TXD0	(PIN_OUTPUT | MUX_MODE2)	/* (K17) gmii1_txd0.rgmii1_td0 */
+			PIN_MII1_TXD1	(PIN_OUTPUT | MUX_MODE2)	/* (K16) gmii1_txd1.rgmii1_td1 */
+			PIN_MII1_TXD2	(PIN_OUTPUT | MUX_MODE2)	/* (K15) gmii1_txd2.rgmii1_td2 */
+			PIN_MII1_TXD3	(PIN_OUTPUT | MUX_MODE2)	/* (J18) gmii1_txd3.rgmii1_td3 */
+			PIN_MII1_RXD0	(PIN_INPUT | MUX_MODE2)		/* (M16) gmii1_rxd0.rgmii1_rd0 */
+			PIN_MII1_RXD1	(PIN_INPUT | MUX_MODE2)		/* (L15) gmii1_rxd1.rgmii1_rd1 */
+			PIN_MII1_RXD2	(PIN_INPUT | MUX_MODE2)		/* (L16) gmii1_rxd2.rgmii1_rd2 */
+			PIN_MII1_RXD3	(PIN_INPUT | MUX_MODE2)		/* (L17) gmii1_rxd3.rgmii1_rd3 */
+		>;
+	};
+
+	davinci_mdio_default: pinmux_davinci_mdio_default {
+		pinctrl-single,pins = <
+			PIN_MDIO	(MUX_MODE0 | PIN_INPUT_PULLUP)
+			PIN_MDC		(MUX_MODE0 | PIN_OUTPUT_PULLUP)
+		>;
+	};
+
+
+	mmc1_pins: pinmux_mmc1 {
+		pinctrl-single,pins = <
+			PIN_MMC0_DAT0	(PIN_INPUT | MUX_MODE0)		/* mmc0_dat0.mmc0_dat0 */
+			PIN_MMC0_DAT1	(PIN_INPUT | MUX_MODE0)		/* mmc0_dat1.mmc0_dat1 */
+			PIN_MMC0_DAT2	(PIN_INPUT | MUX_MODE0)		/* mmc0_dat2.mmc0_dat2 */
+			PIN_MMC0_DAT3	(PIN_INPUT | MUX_MODE0)		/* mmc0_dat3.mmc0_dat3 */
+			PIN_MMC0_CLK	(PIN_INPUT | MUX_MODE0)		/* mmc0_clk.mmc0_clk */
+			PIN_MMC0_CMD	(PIN_INPUT | MUX_MODE0)		/* mmc0_cmd.mmc0_cmd */
+		>;
+	};
+
+	mmc1_cd: pinmux_mmc1_cd {
+		pinctrl-single,pins = <
+			PIN_SPI0_CS1	(MUX_MODE7 | PIN_INPUT_PULLUP)	/* spi0_cs1.gpio0_6 */
+		>;
+	};
+};
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pins>;
+	status = "okay";
+};
+
+&mac {
+	pinctrl-names = "default";
+	pinctrl-0 = <&cpsw_default>;
+	slaves = <1>;
+	active_slave = <0>;
+	status = "okay";
+};
+
+&davinci_mdio {
+	pinctrl-names = "default";
+	pinctrl-0 = <&davinci_mdio_default>;
+	max-speed = <100>;
+	status = "okay";
+
+	ethphy0: ethernet-phy@0 {
+		reg = <0>;
+	};
+};
+
+&cpsw_emac0 {
+	phy_id = <&davinci_mdio>, <0>;
+	phy-handle = <&ethphy0>;
+        phy-mode = "rgmii-id";
+};
+
+&mmc1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&mmc1_pins &mmc1_cd>;
+	vmmc-supply = <&vmmc_reg>;
+	bus-width = <4>;
+	cd-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
