@@ -3807,6 +3807,7 @@ BYTES AT WORK MODULES AND BOARDS
 M:	Daniel Ammann <daniel.ammann@bytesatwork.ch>
 S:	Maintained
 F:	Documentation/devicetree/bindings/arm/bytesatwork/bytesatwork.yaml
+F:	arch/arm64/boot/dts/ti/*bytedevkit*
 F:	arch/arm64/boot/dts/ti/*byteengine*
 
 C-MEDIA CMI8788 DRIVER
