@@ -5386,6 +5386,9 @@ S:	Maintained
 F:	.github/workflows/checkpatch.yml
 F:	.gitlab-ci.yml
 F:	Documentation/devicetree/bindings/arm/bytesatwork/bytesatwork.yaml
+F:	arch/arm64/boot/dts/ti/k3-am625-bytedevkit-2-2.dtb
+F:	arch/arm64/boot/dts/ti/k3-am625-bytedevkit.dtb
+F:	arch/arm64/boot/dts/ti/k3-am625-byteengine.dtsi
 
 C-MEDIA CMI8788 DRIVER
 M:	Clemens Ladisch <clemens@ladisch.de>
