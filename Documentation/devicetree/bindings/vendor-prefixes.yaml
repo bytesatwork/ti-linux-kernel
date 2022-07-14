@@ -175,6 +175,8 @@ patternProperties:
     description: B&R Industrial Automation GmbH
   "^bticino,.*":
     description: Bticino International
+  "^bytesatwork,.*":
+    description: bytes at work AG
   "^calaosystems,.*":
     description: CALAO Systems SAS
   "^calxeda,.*":
