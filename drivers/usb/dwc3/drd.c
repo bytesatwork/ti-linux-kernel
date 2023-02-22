@@ -538,9 +538,11 @@ int dwc3_drd_init(struct dwc3 *dwc)
 {
 	int ret, irq;
 
+#ifndef CONFIG_USB_DWC3_AM62
 	if (ROLE_SWITCH &&
 	    device_property_read_bool(dwc->dev, "usb-role-switch"))
 		return dwc3_setup_role_switch(dwc);
+#endif
 
 	if (dwc->edev) {
 		dwc->edev_nb.notifier_call = dwc3_drd_notifier;
