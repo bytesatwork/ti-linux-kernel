@@ -1220,6 +1220,8 @@ patternProperties:
     description: YSH & ATIL
   "^yones-toptech,.*":
     description: Yones Toptech Co., Ltd.
+  "^youritech,.*":
+    description: Youritech
   "^ysoft,.*":
     description: Y Soft Corporation a.s.
   "^zealz,.*":
