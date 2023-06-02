@@ -3938,6 +3938,34 @@ static const struct panel_desc winstar_wf35ltiacd = {
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
 };
 
+static const struct drm_display_mode youritech_et050WV05_ct_mode = {
+	.clock = 25000,
+	.hdisplay = 800,
+	.hsync_start = 800 + 8,
+	.hsync_end = 800 + 8 + 8,
+	.htotal = 800 + 8 + 8 + 4,
+	.vdisplay = 480,
+	.vsync_start = 480 + 8,
+	.vsync_end = 480 + 8 + 8,
+	.vtotal = 480 + 8 + 8 + 4,
+};
+
+static const struct panel_desc youritech_et050WV05_ct = {
+	.modes = &youritech_et050WV05_ct_mode,
+	.bpc = 8,
+	.num_modes = 1,
+	.size = {
+		.width = 108,
+		.height = 64,
+	},
+	.delay = {
+		.prepare = 50,
+		.disable = 50,
+	},
+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+};
+
 static const struct drm_display_mode arm_rtsm_mode[] = {
 	{
 		.clock = 65000,
@@ -4370,6 +4398,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "winstar,wf35ltiacd",
 		.data = &winstar_wf35ltiacd,
+	}, {
+		.compatible = "youritech,et050WV05",
+		.data = &youritech_et050WV05_ct,
 	}, {
 		/* Must be the last entry */
 		.compatible = "panel-dpi",
