@@ -3810,6 +3810,7 @@ F:	Documentation/devicetree/bindings/arm/bytesatwork/bytesatwork.yaml
 F:	arch/arm64/boot/dts/ti/*bytedevkit*
 F:	arch/arm64/boot/dts/ti/*byteengine*
 F:	arch/arm64/configs/bytedevkit*
+F:	drivers/video/logo/logo_baw_clut224.ppm
 
 C-MEDIA CMI8788 DRIVER
 M:	Clemens Ladisch <clemens@ladisch.de>
