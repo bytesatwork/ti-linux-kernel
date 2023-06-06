@@ -284,6 +284,8 @@ properties:
       - vxt,vl050-8048nt-c01
         # Winstar Display Corporation 3.5" QVGA (320x240) TFT LCD panel
       - winstar,wf35ltiacd
+        # Youritech ET050WV05 5" WVGA (800x480) TFT LCD panel
+      - youritech,et050WV05
         # TI Simple EDP panel
       - ti,panel-edp
 
