@@ -115,7 +115,7 @@
 
 	main_usb0_pins_default: main-usb0-pins-default {
 		pinctrl-single,pins = <
-			AM62X_IOPAD(0x0254, PIN_INPUT, 0) /* (C20) USB0_DRVVBUS */
+			AM62X_IOPAD(0x0254, PIN_OUTPUT, 0) /* (C20) USB0_DRVVBUS */
 		>;
 	};
 
@@ -177,6 +177,7 @@
 	dr_mode = "host";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_usb0_pins_default>;
+	status = "okay";
 };
 
 &usbss1 {
@@ -189,6 +190,7 @@
 	pinctrl-0 = <&main_usb1_pins_default>;
 	extcon = <&extcon_usb1>;
 	usb-role-switch;
+	status = "okay";
 };
 
 &cpsw3g {
