@@ -254,4 +254,9 @@
 		irq-gpios = <&main_gpio1 23 0>;
 		reset-gpios = <&main_gpio1 22 0>;
 	};
+
+	eeprom: eeprom@57 {
+		compatible = "atmel,24c256";
+		reg = <0x57>;
+	};
 };
