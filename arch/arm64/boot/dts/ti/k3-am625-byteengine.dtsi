@@ -28,6 +28,23 @@
 		#size-cells = <2>;
 		ranges;
 
+		ramoops@9c700000 {
+			compatible = "ramoops";
+			reg = <0x00 0x9c700000 0x00 0x00100000>;
+			record-size = <0x8000>;
+			console-size = <0x8000>;
+			ftrace-size = <0x00>;
+			pmsg-size = <0x8000>;
+		};
+
+		/* global cma region */
+		linux,cma {
+			compatible = "shared-dma-pool";
+			reusable;
+			size = <0x00 0x8000000>;
+			linux,cma-default;
+		};
+
 		rtos_ipc_memory_region: ipc-memories@9c800000 {
 			compatible = "shared-dma-pool";
 			reg = <0x00 0x9c800000 0x00 0x00300000>;
@@ -74,6 +91,20 @@
 			alignment = <0x1000>;
 			no-map;
 		};
+
+		framebuffer: framebuffer@ff700000 {
+			reg = <0x00 0xff700000 0x00 0x008ca000>;
+			no-map;
+		};
+	};
+
+	vdd_core: regulator-1 {
+		compatible = "regulator-fixed";
+		regulator-name = "vdd_core";
+		regulator-min-microvolt = <750000>;
+		regulator-max-microvolt = <750000>;
+		regulator-always-on;
+		regulator-boot-on;
 	};
 };
 
@@ -145,6 +176,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_i2c0_pins_default>;
 	clock-frequency = <400000>;
+	status = "okay";
 };
 
 &main_i2c2 {
@@ -156,6 +188,7 @@
 };
 
 &sdhci0 {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_mmc0_pins_default>;
 	ti,driver-strength-ohm = <50>;
@@ -195,6 +228,18 @@
 &wkup_rti0 {
 	/* WKUP RTI0 is used by DM firmware */
 	status = "reserved";
+};
+
+&usbss0 {
+	ti,vbus-divider;
+	vddcore-supply = <&vdd_core>;
+	status = "okay";
+};
+
+&usbss1 {
+	ti,vbus-divider;
+	vddcore-supply = <&vdd_core>;
+	status = "okay";
 };
 
 &mcasp0 {

@@ -33,6 +33,7 @@
 		id-gpios = <&main_gpio1 8 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&main_usb1_gpio_id_pins_default>;
+		status = "okay";
 	};
 
 	display0: display {
@@ -160,12 +161,14 @@
 };
 
 &main_uart0 {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_uart0_pins_default>;
 };
 
 /* SD/MMC */
 &sdhci1 {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_mmc1_pins_default>;
 	ti,driver-strength-ohm = <50>;
@@ -180,10 +183,6 @@
 	status = "okay";
 };
 
-&usbss1 {
-	ti,vbus-divider;
-};
-
 &usb1 {
 	dr_mode = "otg";
 	pinctrl-names = "default";
@@ -194,6 +193,7 @@
 };
 
 &cpsw3g {
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_mdio1_pins_default
 		     &main_rmii1_pins_default
@@ -203,14 +203,18 @@
 &cpsw_port1 {
 	phy-mode = "rmii";
 	phy-handle = <&cpsw3g_phy0>;
+	status = "okay";
 };
 
 &cpsw_port2 {
 	phy-mode = "rmii";
 	phy-handle = <&cpsw3g_phy1>;
+	status = "okay";
 };
 
 &cpsw3g_mdio {
+	status = "okay";
+
 	cpsw3g_phy0: ethernet-phy@0 {
 		reg = <0>;
 	};
@@ -223,6 +227,7 @@
 &dss {
 	pinctrl-names = "default";
 	pinctrl-0 = <&oldi0_pins_default>;
+	status = "okay";
 };
 
 &dss_ports {
