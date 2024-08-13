@@ -111,6 +111,7 @@ config TI_K3_AM65_CPSW_NUSS
 	tristate "TI K3 AM654x/J721E CPSW Ethernet driver"
 	depends on ARCH_K3 && OF && TI_K3_UDMA_GLUE_LAYER
 	select NET_DEVLINK
+	select PAGE_POOL
 	select TI_DAVINCI_MDIO
 	select PHYLINK
 	select TI_K3_CPPI_DESC_POOL
