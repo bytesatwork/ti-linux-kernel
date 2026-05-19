@@ -5389,6 +5389,8 @@ F:	Documentation/devicetree/bindings/arm/bytesatwork/bytesatwork.yaml
 F:	Documentation/devicetree/bindings/display/panel/youritech,ili9806e.yaml
 F:	arch/arm64/boot/dts/ti/k3-am625-bytedevkit-v2-0.dtb
 F:	arch/arm64/boot/dts/ti/k3-am625-byteengine.dtsi
+F:	arch/arm64/boot/dts/ti/k3-am62l3-bytedevkit-v2-0.dtb
+F:	arch/arm64/boot/dts/ti/k3-am62l3-byteengine.dtsi
 F:	arch/arm64/configs/bytedevkit_am62x_defconfig
 F:	drivers/gpu/drm/panel/panel-youritech-ili9806e.c
 
