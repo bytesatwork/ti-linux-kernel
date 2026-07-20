@@ -17,13 +17,26 @@ properties:
       - description: bytesatwork byteENGINE
         items:
           - enum:
+              - bytesatwork,byteengine-am62lx
+              - bytesatwork,byteengine-am62px
               - bytesatwork,byteengine-am62x
-          - const: bytesatwork,byteengine-am62x
+              - bytesatwork,byteengine-imx8mm
+              - bytesatwork,byteengine-imx8mp
+              - bytesatwork,byteengine-imx93
+              - bytesatwork,byteengine-stm32mp1
+              - bytesatwork,byteengine-stm32mp2
+
       - description: bytesatwork byteDEVKIT
         items:
           - enum:
+              - bytesatwork,bytedevkit-am62lx
+              - bytesatwork,bytedevkit-am62px
               - bytesatwork,bytedevkit-am62x
-          - const: bytesatwork,bytedevkit-am62x
+              - bytesatwork,bytedevkit-imx8mm
+              - bytesatwork,bytedevkit-imx8mp
+              - bytesatwork,bytedevkit-imx93
+              - bytesatwork,bytedevkit-stm32mp1
+              - bytesatwork,bytedevkit-stm32mp2
 
 additionalProperties: true
 
